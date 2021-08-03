@@ -1,0 +1,46 @@
+.bl-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.bl-image__box {
+  width: 100%;
+}
+
+.bl-image__img {
+  position: absolute;
+  width: 100%;
+  /* height: 100%; */
+  /* top: 0; */
+  right: 0;
+  /* bottom: 0; */
+  left: 0;
+  margin: 0;
+  /* object-fit: cover;
+  object-position: center center; */
+}
+
+.bl-image__ph {
+  position: absolute !important;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transition: opacity ease-in-out 500ms;
+  opacity: 1;
+}
+
+.bl-image__ph--hidden {
+  opacity: 0;
+}
+
+.medium-zoom-overlay,
+.medium-zoom-image--opened {
+  z-index: 999 !important;
+}
