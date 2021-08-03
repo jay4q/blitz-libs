@@ -1,27 +1,8 @@
-# blitz-libs
+# 常用组件库
 
-## Getting Started
+## Todo
 
-Install dependencies,
-
-```bash
-$ npm i
-```
-
-Start the dev server,
-
-```bash
-$ npm start
-```
-
-Build documentation,
-
-```bash
-$ npm run docs:build
-```
-
-Build library via `father-build`,
-
-```bash
-$ npm run build
-```
++ [x] 图片组件菜单归类好
++ [ ] 组件 props 单独导出
++ [ ] 支持按需加载
++ [ ] 加载动画
