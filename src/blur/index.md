@@ -1,5 +1,5 @@
 ---
-title: 艺术占位图
+title: 图片模糊占位图
 nav:
   title: UI组件
   path: /ui-component

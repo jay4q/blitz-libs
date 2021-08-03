@@ -1,16 +1,10 @@
-import React, { CanvasHTMLAttributes, createRef, PureComponent, RefObject } from 'react'
+import React, { createRef, PureComponent, RefObject } from 'react'
 import { decode } from 'blurhash'
 import classNames from 'classnames'
-
-export type BlurCanvasProps = CanvasHTMLAttributes<HTMLCanvasElement> & {
-  hash: string
-  punch?: number
-  width?: number
-  height?: number
-}
+import { BlurCanvasProps } from './types'
 
 export class BlurCanvas extends PureComponent<BlurCanvasProps> {
-  static defaultProps = {
+  static defaultProps: Partial<BlurCanvasProps> = {
     height: 32,
     width: 32,
   }

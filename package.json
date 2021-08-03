@@ -1,6 +1,11 @@
 {
   "name": "blitz-libs",
   "version": "0.1.2",
+  "license": "MIT",
+  "homepage": "https://github.com/jay4q/blitz-libs",
+  "bugs": {
+    "url": "https://github.com/jay4q/blitz-libs/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jay4q/blitz-libs.git"
