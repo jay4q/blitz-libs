@@ -1,6 +1,6 @@
 {
   "name": "blitz-libs",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "license": "MIT",
   "homepage": "https://github.com/jay4q/blitz-libs",
   "bugs": {
@@ -39,9 +39,11 @@
     "classnames": "^2.3.1",
     "medium-zoom": "^1.0.6",
     "query-string": "^7.0.1",
-    "react": "^16.12.0",
     "react-intersection-observer": "^8.32.0",
     "regenerator-runtime": "^0.13.9"
+  },
+  "peerDependencies": {
+    "react": ">=16.12.0"
   },
   "devDependencies": {
     "@umijs/test": "^3.0.5",
