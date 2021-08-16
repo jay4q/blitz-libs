@@ -43,4 +43,6 @@
 .medium-zoom-overlay,
 .medium-zoom-image--opened {
   z-index: 999 !important;
+  backdrop-filter: blur(8px);
+  background-color: transparent !important;
 }
