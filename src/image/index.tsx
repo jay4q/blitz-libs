@@ -29,7 +29,7 @@ export type ImageProps = ImgHTMLAttributes<HTMLImageElement> & {
 
   /**
    * @description 是否支持缩放
-   * @default true
+   * @default false
    */
   zoomable?: boolean;
 
@@ -47,10 +47,10 @@ export const Image: FunctionComponent<ImageProps> = ({
   hash: _hash,
   color: _color,
   ratio: _ratio,
-  zoomable = true,
+  zoomable = false,
   ...restProps
 }) => {
-  const zoomRef = useRef(ZOOM.clone({ background: 'white' }));
+  const zoomRef = useRef(ZOOM.clone({ background: 'transparent' }));
 
   const supportsLazyLoading = useNativeLazyLoading();
   const { ref, inView } = useInView({
@@ -66,18 +66,11 @@ export const Image: FunctionComponent<ImageProps> = ({
       if (!restProps.src) throw new Error();
 
       // 解析链接中的参数
-      const arr = restProps.src.split('?');
-      if (arr.length !== 2) throw new Error();
-
-      // const search_result = /(?<=\?).{1,}/.exec(restProps.src)
-      // if (!search_result) throw new Error()
-      // const search = qs.parse(search_result[0])
-
-      const search = qs.parse(arr[1]);
+      const query = qs.parseUrl(restProps.src).query;
       return {
-        hash: (search['hash'] as string) || _hash,
-        color: (search['color'] as string) || _color,
-        ratio: Number(search['width']) / Number(search['height']) || _ratio,
+        hash: (query['hash'] as string) || _hash,
+        color: (query['color'] as string) || _color,
+        ratio: Number(query['width']) / Number(query['height']) || _ratio,
       };
     } catch (err) {
       return {
