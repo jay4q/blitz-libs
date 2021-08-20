@@ -50,7 +50,7 @@ export const Image: FunctionComponent<ImageProps> = ({
   zoomable = false,
   ...restProps
 }) => {
-  const zoomRef = useRef(ZOOM.clone({ background: 'transparent' }));
+  const zoomRef = useRef(ZOOM.clone({ background: 'rgba(0, 0, 0, 0.5)' }));
 
   const supportsLazyLoading = useNativeLazyLoading();
   const { ref, inView } = useInView({
