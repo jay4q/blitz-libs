@@ -6,15 +6,14 @@ import React, {
   useMemo,
   useState,
   FunctionComponent,
+  useEffect,
 } from 'react';
-import mediumZoom from 'medium-zoom';
+import mediumZoom, { Zoom } from 'medium-zoom';
 import classNames from 'classnames';
 import { useInView } from 'react-intersection-observer';
 import qs from 'query-string';
 import { useNativeLazyLoading } from './helper';
 import { BlurImage } from '../blur';
-
-const ZOOM = mediumZoom();
 
 export type ImageProps = ImgHTMLAttributes<HTMLImageElement> & {
   /**
@@ -50,7 +49,7 @@ export const Image: FunctionComponent<ImageProps> = ({
   zoomable = false,
   ...restProps
 }) => {
-  const zoomRef = useRef(ZOOM.clone({ background: 'rgba(0, 0, 0, 0.5)' }));
+  const [zoomRef, setZoomRef] = useState<Zoom>();
 
   const supportsLazyLoading = useNativeLazyLoading();
   const { ref, inView } = useInView({
@@ -86,13 +85,15 @@ export const Image: FunctionComponent<ImageProps> = ({
    */
   const attachZoom = useCallback(
     (ref) => {
+      if (!zoomRef) return;
+
       if (zoomable) {
-        zoomRef.current.attach(ref);
+        zoomRef.attach(ref);
       } else {
-        zoomRef.current.detach(ref);
+        zoomRef.detach(ref);
       }
     },
-    [zoomable],
+    [zoomable, zoomRef],
   );
 
   /**
@@ -127,6 +128,10 @@ export const Image: FunctionComponent<ImageProps> = ({
     },
     [zoomable, onClick],
   );
+
+  useEffect(() => {
+    setZoomRef(mediumZoom());
+  }, []);
 
   return (
     <div

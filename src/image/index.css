@@ -43,3 +43,7 @@
 .medium-zoom-image--opened {
   z-index: 999 !important;
 }
+
+.medium-zoom-overlay {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
