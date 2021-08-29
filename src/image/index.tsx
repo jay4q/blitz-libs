@@ -43,6 +43,7 @@ export const Image: FunctionComponent<ImageProps> = ({
   onClick,
   style,
   className,
+  children,
   hash: _hash,
   color: _color,
   ratio: _ratio,
@@ -174,6 +175,7 @@ export const Image: FunctionComponent<ImageProps> = ({
           )}
         />
       )}
+      {children}
     </div>
   );
 };
