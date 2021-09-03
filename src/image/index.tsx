@@ -2,11 +2,11 @@ import './index.css';
 import React, {
   ImgHTMLAttributes,
   useCallback,
-  useRef,
   useMemo,
   useState,
   FunctionComponent,
   useEffect,
+  CSSProperties,
 } from 'react';
 import mediumZoom, { Zoom } from 'medium-zoom';
 import classNames from 'classnames';
@@ -36,6 +36,11 @@ export type ImageProps = ImgHTMLAttributes<HTMLImageElement> & {
    * @description 图片宽高比
    */
   ratio?: number;
+
+  /**
+   * @description 图片样式
+   */
+  imageStyle?: CSSProperties;
 };
 
 export const Image: FunctionComponent<ImageProps> = ({
@@ -44,6 +49,7 @@ export const Image: FunctionComponent<ImageProps> = ({
   style,
   className,
   children,
+  imageStyle,
   hash: _hash,
   color: _color,
   ratio: _ratio,
@@ -154,6 +160,7 @@ export const Image: FunctionComponent<ImageProps> = ({
           ref={attachZoom}
           loading="lazy"
           className="bl-image__img"
+          style={imageStyle}
           onLoad={onImageLoad}
         />
       )}
