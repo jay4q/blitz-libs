@@ -12,7 +12,11 @@ import mediumZoom, { Zoom } from 'medium-zoom';
 import classNames from 'classnames';
 import { useInView } from 'react-intersection-observer';
 import qs from 'query-string';
-import { useNativeLazyLoading } from './helper';
+import {
+  checkImageLoaded,
+  setLoadedImage,
+  useNativeLazyLoading,
+} from './helper';
 import { BlurImage } from '../blur';
 
 export type ImageProps = ImgHTMLAttributes<HTMLImageElement> & {
@@ -66,6 +70,7 @@ export const Image: FunctionComponent<ImageProps> = ({
 
   const [isLoaded, setImageLoaded] = useState(false);
   const [delayLoaded, setDelayLoaded] = useState(false);
+  const isLoadedBefore = checkImageLoaded(restProps.src);
 
   const { hash, color, ratio } = useMemo(() => {
     try {
@@ -87,9 +92,7 @@ export const Image: FunctionComponent<ImageProps> = ({
     }
   }, [_hash, _color, _ratio, restProps.src]);
 
-  /**
-   * 兼容图片缩放模式
-   */
+  // 兼容图片缩放模式
   const attachZoom = useCallback(
     (ref) => {
       if (!zoomRef) return;
@@ -103,9 +106,7 @@ export const Image: FunctionComponent<ImageProps> = ({
     [zoomable, zoomRef],
   );
 
-  /**
-   * 图片加载回调
-   */
+  // 图片加载回调
   const onImageLoad = useCallback(
     (e: any) => {
       setImageLoaded(true);
@@ -118,15 +119,14 @@ export const Image: FunctionComponent<ImageProps> = ({
         // 如果有模糊图或者纯色，加载完毕后延迟从视图中移除
         setTimeout(() => {
           setDelayLoaded(true);
+          setLoadedImage(restProps.src);
         }, 500);
       }
     },
-    [color, hash, onLoad],
+    [color, hash, onLoad, restProps.src],
   );
 
-  /**
-   * 图片点击事件
-   */
+  // 图片点击事件
   const onImageClick = useCallback(
     (e: any) => {
       if (!zoomable && onClick) {
@@ -153,7 +153,7 @@ export const Image: FunctionComponent<ImageProps> = ({
           style={{ paddingBottom: (1 / ratio) * 100 + '%' }}
         ></div>
       )}
-      {(inView || supportsLazyLoading) && (
+      {(isLoadedBefore || inView || supportsLazyLoading) && (
         <img
           alt="img"
           {...restProps}
@@ -164,7 +164,7 @@ export const Image: FunctionComponent<ImageProps> = ({
           onLoad={onImageLoad}
         />
       )}
-      {!hash && color && !delayLoaded && (
+      {!isLoadedBefore && !hash && color && !delayLoaded && (
         <div
           style={{ background: color }}
           className={classNames(
@@ -173,7 +173,7 @@ export const Image: FunctionComponent<ImageProps> = ({
           )}
         ></div>
       )}
-      {hash && !delayLoaded && (
+      {!isLoadedBefore && hash && !delayLoaded && (
         <BlurImage
           hash={hash}
           className={classNames(
