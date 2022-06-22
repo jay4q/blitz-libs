@@ -62,10 +62,10 @@ export const Image: FunctionComponent<ImageProps> = ({
 }) => {
   const [zoomRef, setZoomRef] = useState<Zoom>();
 
-  const supportsLazyLoading = useNativeLazyLoading();
+  // const supportsLazyLoading = useNativeLazyLoading();
   const { ref, inView } = useInView({
     triggerOnce: true,
-    skip: supportsLazyLoading !== false,
+    // skip: supportsLazyLoading !== false,
   });
 
   const [isLoaded, setImageLoaded] = useState(false);
@@ -153,7 +153,7 @@ export const Image: FunctionComponent<ImageProps> = ({
           style={{ paddingBottom: (1 / ratio) * 100 + '%' }}
         ></div>
       )}
-      {(isLoadedBefore || inView || supportsLazyLoading) && (
+      {(isLoadedBefore || inView) && ( // ? isLoadedBefore || inView || supportsLazyLoading
         <img
           alt="img"
           {...restProps}
